@@ -212,7 +212,7 @@ if (WIN32)
 else ()
   set (
     CARLA_UE_BUILD_COMMAND_PREFIX
-      ${CARLA_UNREAL_ENGINE_PATH}/Engine/Build/BatchFiles/${UE_SYSTEM_NAME}/Build.sh
+      ${CARLA_UNREAL_ENGINE_PATH}/Engine/Build/BatchFiles/${UE_HOST_SYSTEM_NAME}/Build.sh
   )
   set (
     CARLA_UE_UAT_COMMAND_PREFIX

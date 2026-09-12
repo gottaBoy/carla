@@ -33,6 +33,8 @@ if	(${ARCH} STREQUAL "x86_64")
 elseif (${ARCH} STREQUAL "aarch64")
 	set (CMAKE_SYSTEM_PROCESSOR aarch64 CACHE STRING "")
 	set (TARGET_TRIPLE "aarch64-unknown-linux-gnueabi" CACHE STRING "")
+else ()
+	message (FATAL_ERROR "Unsupported Linux host architecture: ${ARCH}")
 endif()
 
 file (
@@ -83,7 +85,7 @@ set (
 
 set (
 	UE_OPENSSL_LIBS
-	${UE_THIRD_PARTY}/OpenSSL/1.1.1t/lib/Unix/x86_64-unknown-linux-gnu CACHE PATH ""
+	${UE_THIRD_PARTY}/OpenSSL/1.1.1t/lib/Unix/${TARGET_TRIPLE} CACHE PATH ""
 )
 
 add_compile_options (

@@ -1,4 +1,5 @@
 ARG UBUNTU_DISTRO="22.04"
+ARG CMAKE_VERSION="3.28.3"
 
 FROM ubuntu:${UBUNTU_DISTRO}
 
@@ -73,13 +74,22 @@ RUN apt-get update && \
 # Enable git lfs
 RUN git lfs install
 
-# Minimum required version is 3.28.0.
-# Install a newer version manually, as Ubuntu 22.04 includes an outdated CMake from the upstream repository.
-RUN curl -L -O https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3-linux-x86_64.tar.gz \
-    && mkdir -p /opt \
-    && tar -xzf cmake-3.28.3-linux-x86_64.tar.gz -C /opt \
-    && rm -rf cmake-3.28.3-linux-x86_64.tar.gz
-ENV PATH=/opt/cmake-3.28.3-linux-x86_64/bin:$PATH
+# Minimum required version is 3.28.0. Select the native archive instead of
+# forcing an x86_64 tool into an ARM64 development image.
+RUN set -eux; \
+    case "$(dpkg --print-architecture)" in \
+        amd64) cmake_arch=x86_64 ;; \
+        arm64) cmake_arch=aarch64 ;; \
+        *) echo "unsupported Debian architecture: $(dpkg --print-architecture)" >&2; exit 1 ;; \
+    esac; \
+    cmake_dir="cmake-${CMAKE_VERSION}-linux-${cmake_arch}"; \
+    curl -fsSL "https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/${cmake_dir}.tar.gz" \
+        -o "/tmp/${cmake_dir}.tar.gz"; \
+    mkdir -p /opt; \
+    tar -xzf "/tmp/${cmake_dir}.tar.gz" -C /opt; \
+    ln -s "/opt/${cmake_dir}" /opt/cmake; \
+    rm -f "/tmp/${cmake_dir}.tar.gz"
+ENV PATH=/opt/cmake/bin:$PATH
 
 # SDL2 libraries:
 # Required for Unreal Engine to interact with the display.
