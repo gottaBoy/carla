@@ -76,6 +76,7 @@ endif ()
 
 if (WIN32)
   set (EXE_EXT .exe)
+  set (UE_HOST_SYSTEM_NAME Win64)
   set (UE_SYSTEM_NAME Win64)
 elseif (LINUX)
   set (EXE_EXT)

@@ -55,7 +55,7 @@ endif ()
 
 set (
   UNREAL_EDITOR_PATH
-  ${CARLA_UNREAL_ENGINE_PATH}/Engine/Binaries/${UE_SYSTEM_NAME}/UnrealEditor${EXE_EXT}
+  ${CARLA_UNREAL_ENGINE_PATH}/Engine/Binaries/${UE_HOST_SYSTEM_NAME}/UnrealEditor${EXE_EXT}
 )
 
 set (CARLA_UE_CONTENT_CHECK_PATH ${CARLA_UE_PATH}/Content/Carla/Blueprints)
