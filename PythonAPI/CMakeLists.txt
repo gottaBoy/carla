@@ -108,6 +108,13 @@ if (CMAKE_TOOLCHAIN_FILE)
   )
 endif ()
 
+if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "aarch64|arm64")
+  set (
+    CARLA_PYTHON_API_CMAKE_ARGS
+    "${CARLA_PYTHON_API_CMAKE_ARGS},\n\t'-DCMAKE_CXX_FLAGS=-isystem/opt/carla-python/include'"
+  )
+endif ()
+
 carla_two_step_configure_file (
   ${CARLA_PYTHON_API_CARLA_PATH}/pyproject.toml
   ${CARLA_PYTHON_API_CARLA_PATH}/pyproject.toml.in
