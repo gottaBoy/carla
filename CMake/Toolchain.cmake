@@ -212,4 +212,27 @@ set (
 	${UE_INCLUDE} ${UE_INCLUDE}/c++/v1
 )
 
+# The UE libc++ headers recurse into their own C compatibility wrappers on ARM64.
+# Keep UE static libc++ libraries for ABI and use the container Clang libc++ headers.
+if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "aarch64|arm64")
+  set (
+    CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES
+    /usr/lib/llvm-18/include/c++/v1
+  )
+endif ()
+# Use native LLVM binutils for ARM64; the UE sysroot binutils are x86 host tools.
+if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "aarch64|arm64")
+  set (CMAKE_AR /usr/lib/llvm-18/bin/llvm-ar CACHE FILEPATH "" FORCE)
+  set (CMAKE_C_COMPILER_AR /usr/lib/llvm-18/bin/llvm-ar CACHE FILEPATH "" FORCE)
+  set (CMAKE_CXX_COMPILER_AR /usr/lib/llvm-18/bin/llvm-ar CACHE FILEPATH "" FORCE)
+  set (CMAKE_RANLIB /usr/lib/llvm-18/bin/llvm-ranlib CACHE FILEPATH "" FORCE)
+  set (CMAKE_C_COMPILER_RANLIB /usr/lib/llvm-18/bin/llvm-ranlib CACHE FILEPATH "" FORCE)
+  set (CMAKE_CXX_COMPILER_RANLIB /usr/lib/llvm-18/bin/llvm-ranlib CACHE FILEPATH "" FORCE)
+  set (CMAKE_NM /usr/lib/llvm-18/bin/llvm-nm CACHE FILEPATH "" FORCE)
+  set (CMAKE_OBJCOPY /usr/lib/llvm-18/bin/llvm-objcopy CACHE FILEPATH "" FORCE)
+  set (CMAKE_OBJDUMP /usr/lib/llvm-18/bin/llvm-objdump CACHE FILEPATH "" FORCE)
+  set (CMAKE_READELF /usr/lib/llvm-18/bin/llvm-readelf CACHE FILEPATH "" FORCE)
+  set (CMAKE_STRIP /usr/lib/llvm-18/bin/llvm-strip CACHE FILEPATH "" FORCE)
+  set (CMAKE_LINKER /usr/lib/llvm-18/bin/ld.lld CACHE FILEPATH "" FORCE)
+endif ()
 endif ()
