@@ -203,8 +203,8 @@ set (
 # do not pull in libm themselves, so the final link must request it explicitly.
 # Without -lm the link fails with undefined references to those symbols.
 set (
-	CMAKE_CXX_STANDARD_LIBRARIES
-	"${UE_LIBS}/libc++.a ${UE_LIBS}/libc++abi.a -lm"
+ CMAKE_CXX_STANDARD_LIBRARIES
+ "${UE_LIBS}/libc++.a ${UE_LIBS}/libc++abi.a -lm"
 )
 
 set (
@@ -215,6 +215,13 @@ set (
 # The UE libc++ headers recurse into their own C compatibility wrappers on ARM64.
 # Keep UE static libc++ libraries for ABI and use the container Clang libc++ headers.
 if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "aarch64|arm64")
+  # The UE-bundled libc++abi is built with an older ABI and lacks symbols
+  # required by the ARM64 LibCarla promise/future implementation. Match the
+  # native Clang 18 headers and ABI libraries used in this container.
+  set (
+    CMAKE_CXX_STANDARD_LIBRARIES
+    "/usr/lib/llvm-18/lib/libc++.a /usr/lib/llvm-18/lib/libc++abi.a -lm"
+  )
   set (
     CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES
     /usr/lib/llvm-18/include/c++/v1

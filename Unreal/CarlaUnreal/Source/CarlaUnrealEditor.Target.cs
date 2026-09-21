@@ -4,6 +4,9 @@ using UnrealBuildTool;
 using System;
 using EpicGames.Core;
 
+[SupportedPlatforms("Win64", "Linux", "LinuxArm64", "Mac")]
+
+// LinuxArm64 is an ARM64-first CARLA port; keep it explicitly in the Editor class.
 public class CarlaUnrealEditorTarget : TargetRules
 {
     [CommandLine("-unity-build")]
