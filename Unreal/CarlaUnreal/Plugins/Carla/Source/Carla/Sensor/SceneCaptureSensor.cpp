@@ -932,6 +932,7 @@ void ASceneCaptureSensor::BeginPlay()
       ImageHeight,
       bEnable16BitFormat ? PF_FloatRGBA : PF_B8G8R8A8,
       bInForceLinearGamma);
+  CaptureRenderTarget->UpdateResourceImmediate(true);
 
   if (bEnablePostProcessingEffects)
   {

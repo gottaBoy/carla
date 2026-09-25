@@ -1,6 +1,7 @@
 {
 	"FileVersion": 3,
 	"EngineAssociation": "{EFC07C98-4070-2F0E-BE31-319DCE259DFF}",
+	"DisableEnginePluginsByDefault": true,
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -26,8 +27,27 @@
 			"Enabled": true
 		},
 		{
-			"Name": "RenderDocPlugin",
+			"Name": "ChaosVehiclesPlugin",
 			"Enabled": true
+		},
+		{
+			"Name": "ProceduralMeshComponent",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystemUtils",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystem",
+			"Enabled": true
+		},
+		{
+			"Name": "RenderDocPlugin",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
 		},
 		{
 			"Name": "CarSim",
@@ -36,23 +56,40 @@
 		},
 		{
 			"Name": "EditorScriptingUtilities",
-			"Enabled": true
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "TextureFormatOodle",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
 		},
 		{
 			"Name": "CarlaTools",
-			"Enabled": true
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
 		},
 		{
 			"Name": "PythonScriptPlugin",
-			"Enabled": true
+			"Enabled": false
+		},
+		{
+			"Name": "SequencerScripting",
+			"Enabled": false
 		},
 		{
 			"Name": "AlembicHairImporter",
-			"Enabled": true
+			"Enabled": false
 		},
 		{
 			"Name": "HairStrands",
-			"Enabled": true
+			"Enabled": false
 		},
 		{
 			"Name": "SunPosition",
@@ -67,15 +104,39 @@
 		},
 		{
 			"Name": "RigLogic",
-			"Enabled": true
+			"Enabled": false
 		},
 		{
 			"Name": "Volumetrics",
-			"Enabled": true
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "Landmass",
+			"Enabled": false
 		},
 		{
 			"Name": "PerformanceMonitor",
-			"Enabled": true
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "AnimationData",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "ControlRig",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
 		}
 	],
 	"TargetPlatforms": [

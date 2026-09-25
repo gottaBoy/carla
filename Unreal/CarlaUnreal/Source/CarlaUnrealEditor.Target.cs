@@ -25,6 +25,30 @@ public class CarlaUnrealEditorTarget : TargetRules
         IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
         Type = TargetType.Editor;
 
+        // CEF3 ships only an x86-64 libcef for Linux; there is no aarch64 build.
+        // Disable the embedded browser for the ARM64 editor (not needed to cook assets).
+        bool bArm64Linux = Target.Platform == UnrealTargetPlatform.LinuxArm64 ||
+            (Target.Platform == UnrealTargetPlatform.Linux && Architecture == UnrealArch.Arm64);
+        if (bArm64Linux)
+        {
+            bCompileCEF3 = false;
+            DisablePlugins.AddRange(new string[]
+            {
+                "BinkMedia",
+                "ChangelistReview",
+                "LevelSequenceEditor",
+                "Niagara",
+                "OodleNetwork",
+                "PerforceSourceControl",
+                "PythonScriptPlugin",
+                "SequencerAnimTools",
+                "SequencerScripting",
+                "SpeedTreeImporter",
+                "TemplateSequence",
+            });
+            bOverrideBuildEnvironment = true;
+        }
+
         ExtraModuleNames.Add("CarlaUnreal");
 
         LogFlagStatus("Unity build", EnableUnityBuild);

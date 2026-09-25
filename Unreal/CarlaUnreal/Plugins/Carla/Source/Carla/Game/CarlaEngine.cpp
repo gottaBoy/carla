@@ -27,6 +27,7 @@
 #include <util/enable-ue4-macros.h>
 
 #include <util/ue-header-guard-begin.h>
+#include "Engine/Engine.h"
 #include "Misc/App.h"
 #include "PhysicsEngine/PhysicsSettings.h"
 #include <util/ue-header-guard-end.h>
@@ -395,12 +396,10 @@ void FCarlaEngine::OnEpisodeSettingsChanged(const FEpisodeSettings &Settings)
 
   bSynchronousMode = Settings.bSynchronousMode;
 
-#if WITH_EDITOR
   if (GEngine && GEngine->GameViewport)
   {
     GEngine->GameViewport->bDisableWorldRendering = Settings.bNoRenderingMode;
   }
-#endif
   FCarlaEngine_SetFixedDeltaSeconds(Settings.FixedDeltaSeconds);
 
   // Setting parameters for physics substepping

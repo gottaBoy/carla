@@ -223,6 +223,12 @@ namespace ImageUtil
     auto& CmdList = FRHICommandListImmediate::Get();
     auto Resource = static_cast<FTextureRenderTarget2DResource*>(
       RenderTarget.GetResource());
+    if (Resource == nullptr || !Resource->IsInitialized())
+    {
+      UE_LOG(LogCarla, Warning,
+          TEXT("ReadImageDataBegin: render target resource is not ready"));
+      return;
+    }
     auto Texture = Resource->GetRenderTargetTexture();
     if (Texture == nullptr)
       return;
