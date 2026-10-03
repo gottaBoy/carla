@@ -39,5 +39,8 @@ core.[0-9]*
 _out*
 _images*
 
+# Vulkan shader diagnostics written by the DGX ARM64 probes into the project tree
+Unreal/CarlaUnreal/Saved_shaderdiag/
+
 # Temp
 Help.md
